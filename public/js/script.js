@@ -46,12 +46,13 @@ $(document).ready(function() {
             url: $(this).attr('action'),
             data: $(this).serialize(),
             success: function(data) {
-                if(firstContact) {
-                    window.location = 'contacts';
-                }
                 if(data.indexOf("errors") > -1) {
                     $("#modal_errors").html(data);
                 } else {
+                    if(firstContact) {
+                        window.location = 'contacts';
+                    }
+
                     updateTable();
                     closeModal();
 

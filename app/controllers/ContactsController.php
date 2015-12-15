@@ -18,12 +18,7 @@ class ContactsController extends \BaseController {
 	{
 		$contact = new Contact;
 
-		$validation = Validator::make(Input::all(), [
-			'first_name' => 'required|min:2|alpha_dash',
-			'last_name' => 'required|min:2|alpha_dash',
-			'email' => 'required|email',
-			'phone' => 'required|min:10',
-		]);
+		$validation = $this->validateContact(Input::all());
 
 		if($validation->fails()) {
 			return (String) View::make('common.modal_errors', ['errors' => $validation->errors()]);
@@ -76,12 +71,7 @@ class ContactsController extends \BaseController {
 			return;
 		}
 
-		$validation = Validator::make(Input::all(), [
-			'first_name' => 'required|min:2|alpha_dash',
-			'last_name' => 'required|min:2|alpha_dash',
-			'email' => 'required|email',
-			'phone' => 'required|min:10'
-		]);
+		$validation = $this->validateContact(Input::all());
 
 		if($validation->fails()) {
 			return (String) View::make('common.modal_errors', ['errors' => $validation->errors()]);
@@ -189,6 +179,18 @@ class ContactsController extends \BaseController {
 		$user = Auth::user();
 
 		return (String) View::make('contacts.table', ['contacts' => $user->contacts]);
+	}
+
+	private function validateContact($input)
+	{
+		$validation = Validator::make($input, [
+			'first_name' => 'required|min:2|alpha_dash',
+			'last_name' => 'required|min:2|alpha_dash',
+			'email' => 'required|email',
+			'phone' => 'required|min:10',
+		]);
+
+		return $validation;
 	}
 
 }

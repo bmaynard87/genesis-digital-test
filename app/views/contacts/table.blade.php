@@ -1,8 +1,8 @@
 @foreach($contacts as $contact)
     <tr>
         <td>{{ $contact->first_name }} {{ $contact->last_name }}</td>
-        <td>{{ $contact->email }}</td>
-        <td>{{ $contact->phone }}</td>
+        <td><a href="mailto:{{ $contact->email }}">{{ $contact->email }}</a></td>
+        <td>({{  substr($contact->phone, 0, 3) }})-{{  substr($contact->phone, 3, 3) }}-{{  substr($contact->phone,6) }}</td>
         <td>{{ $contact->custom_field_1 }}</td>
         <td>{{ $contact->custom_field_2 }}</td>
         <td>{{ $contact->custom_field_3 }}</td>
